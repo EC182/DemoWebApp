@@ -14,33 +14,38 @@
         <form class="form-inline">
             <div class="form-group">
                 <label>First Name</label>
-                <input type="text" class="form-control" placeholder="Jane" ng-value="{{ employee.firstName}}"/>
+                <input type="text" name="firstName" class="form-control" placeholder="Jane" ng-model="empl.firstName"/>
             </div>
             <div class="form-group">
                 <label>Last Name</label>
-                <input type="email" class="form-control" placeholder="Doe" ng-value="{{ employee.lastName}}"/>
+                <input type="text" name="lastName" class="form-control" placeholder="Doe" ng-model="empl.lastName" />
             </div>
-            <br/>
-            <button class="btn btn-default">Add Employee</button>
+            <br />
+            <button ng-click="addEmployee(empl)" class="btn btn-default">Add Employee</button>
         </form>
         <!-- Hidden until employee added-->
-        <h3 ng-show="employee">Add Dependent</h3>
-        <form class="form-inline" ng-show="employee">
+        <h3 ng-show="employee.dependents">Add Dependent</h3>
+        <form class="form-inline" ng-show="employee.dependents">
             <div class="form-group">
                 <label>First Name</label>
-                <input type="text" class="form-control" placeholder="Jane">
+                <input type="text" class="form-control" placeholder="Jane" ng-model="dep.firstName">
             </div>
             <div class="form-group">
                 <label>Last Name</label>
-                <input type="email" class="form-control" placeholder="Doe">
+                <input type="text" class="form-control" placeholder="Doe" ng-model="dep.lastName">
             </div>
             <br/>
-            <button class="btn btn-default">Add Dependent</button>
+            <button ng-click="addDependent(dep)" class="btn btn-default">Add Dependent</button>
         </form>
+        <br />
+        <button class="btn btn-default" ng-click="clearForm()">Clear Form</button>
     </div>
-    <div class="col-md-4" ng-show="employee">
-        <ul ng-repeat="dependents in employee.dependents">
-            
+    <div class="col-md-4" ng-show="employee" >
+        <h3>Employee Name</h3>
+        <p>{{employee.firstName}} {{employee.lastName}}</p>
+        <h3 ng-show="{{employee.dependents}}">Dependents</h3>
+        <ul ng-repeat="dep in employee.dependents">
+            <li>{{ dep.firstName }} {{dep.lastName}}</li>
         </ul>
     </div>
 </div>

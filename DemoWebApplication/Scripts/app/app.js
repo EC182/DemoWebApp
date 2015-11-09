@@ -4,19 +4,41 @@
 
     var controller = function($scope) {
 
+        var calculateDeduction = function() {
+            //post the employee information back to the
+            //api endpoint.  
+
+            //returns a paycheck deduction amount
+
+            $scope.paycheckDeduction = 1000;
+        }
+
+
         $scope.employee = {
             firstName: '',
-            lastName: '',
-            dependents : []
+            lastName : ''
         };
 
-        $scope.addEmployee = function() {
-            
+        $scope.paycheckDeduction = 0;
+
+        $scope.addEmployee = function (empl) {            
+            if (empl.firstName != null && empl.lastName != null) {
+                $.extend($scope.employee, empl);
+                $scope.employee.dependents = [];
+                calculateDeduction();
+            }
         };
 
 
-        $scope.addDependent = function() {
+        $scope.addDependent = function (dep) {
+            if (dep.firstName != null && dep.lastName != null) {
+                var newDep = $.extend({}, dep);
+                $scope.employee.dependents.push(newDep);
+            }
+        };
 
+        $scope.clearForm = function() {
+            $scope.employee = {};
         };
     };
 
