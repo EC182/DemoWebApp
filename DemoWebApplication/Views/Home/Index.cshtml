@@ -7,20 +7,40 @@
     <p class="lead">Compact, minimal web application to help roughly estimate per-pay-period deductions</p>
 </div>
 
-<div class="row">
+<div class="row" ng-app="DeductionCalculator" ng-controller="employeeController" ng-cloak>
 
-    <div class="col-md-4">
+    <div class="col-md-8">
         <h3>Add Employee</h3>
-
+        <form class="form-inline">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" placeholder="Jane" ng-value="{{ employee.firstName}}"/>
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="email" class="form-control" placeholder="Doe" ng-value="{{ employee.lastName}}"/>
+            </div>
+            <br/>
+            <button class="btn btn-default">Add Employee</button>
+        </form>
         <!-- Hidden until employee added-->
-        <h3>Add Dependent</h3>
-
+        <h3 ng-show="employee">Add Dependent</h3>
+        <form class="form-inline" ng-show="employee">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" placeholder="Jane">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="email" class="form-control" placeholder="Doe">
+            </div>
+            <br/>
+            <button class="btn btn-default">Add Dependent</button>
+        </form>
     </div>
-    <div class="col-md-4">
-        <ul>
-            <li>Employee 1</li>
-            <li>Employee 2</li>
-            <li>Employee 3</li>
+    <div class="col-md-4" ng-show="employee">
+        <ul ng-repeat="dependents in employee.dependents">
+            
         </ul>
     </div>
 </div>

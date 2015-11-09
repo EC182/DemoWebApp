@@ -1,43 +1,26 @@
-﻿(function(ko) {
+﻿(function (ng) {
 
-    var mainViewModel = function() {
+    var module = ng.module('DeductionCalculator', []);
 
-        var employees = ko.observableArray([]);
-        var selectedEmployee = ko.observable();
+    var controller = function($scope) {
 
-        var addDependent = function() {
-
+        $scope.employee = {
+            firstName: '',
+            lastName: '',
+            dependents : []
         };
 
-        var removeEmployee
+        $scope.addEmployee = function() {
+            
+        };
+
+
+        $scope.addDependent = function() {
+
+        };
     };
 
-    var employeeViewModel = function() {
+    module.controller('employeeController', ['$scope', controller]);
 
-        var dependents = ko.observableArray([]);
-        var firstName = ko.observable();
-        var lastName = ko.observable();
 
-    };
-
-    var dependentViewModel = function() {
-
-        var firstName = ko.observable();
-        var lastName = ko.observable();
-        
-    };
-
-    window.ViewModels = {
-        MainViewModel: mainViewModel,
-        EmployeeViewModel: employeeViewModel,
-    };
-
-}(window.ko));
-
-(function(models, $, ko) {
-
-    var pageVm = new models.MainViewModel();
-
-    ko.applyBindings(pageVm);
-
-}(window.ViewModels, window.jQuery, window.ko));
+}(window.angular));
