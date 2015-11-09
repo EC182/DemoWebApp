@@ -47,6 +47,8 @@
         <ul ng-repeat="dep in employee.dependents">
             <li>{{ dep.firstName }} {{dep.lastName}}</li>
         </ul>
+        <h3>Deduction Amount</h3>
+        <h4>{{ deduction() | currency }}</h4>
 
         <h3>Paycheck per cycle w/ Deduction</h3>
         <h4>{{ paycheck | currency }}</h4>
