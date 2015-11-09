@@ -14,7 +14,7 @@ namespace DemoWebApplication.Domain.Service
         {
             //Defaults
             DiscountAmount = percentDiscount;
-            DiscountRule = (person) => !string.IsNullOrWhiteSpace(person.FullName) && person.FullName.StartsWith("A");
+            DiscountRule = (person) => !string.IsNullOrWhiteSpace(person.FullName) && person.FullName.StartsWith("A", StringComparison.CurrentCultureIgnoreCase);
         }
 
     }

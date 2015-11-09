@@ -28,7 +28,7 @@
             //api endpoint.  
             //returns a paycheck deduction amount
             var payload = JSON.stringify($scope.employee);
-            var calc = $.ajax('api/employee/calculatePaycheck',
+            var calc = $.ajax('http://localhost:49785/api/employee/calculatePaycheck',
             {
                 method: 'POST',
                 data: payload,
@@ -63,11 +63,13 @@
                 delete dependent.dependents; //remove, should use better OOP instead
                 $scope.employee.dependents.push(dependent);
                 calculatePaycheck();
+                $scope.dep = null;
             }
         };
 
         $scope.clearForm = function () {
             $scope.employee = new models.Person();
+            $scope.empl = null;
         };
     };
 

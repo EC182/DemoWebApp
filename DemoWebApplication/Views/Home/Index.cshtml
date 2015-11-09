@@ -10,7 +10,7 @@
 <div class="row" ng-app="DeductionCalculator" ng-controller="employeeController" ng-cloak>
 
     <div class="col-md-8">
-        <h3>Add Employee</h3>
+        <h3>Employee</h3>
         <form class="form-inline">
             <div class="form-group">
                 <label>First Name</label>
@@ -21,10 +21,10 @@
                 <input type="text" name="lastName" class="form-control" placeholder="Doe" ng-model="empl.lastName" />
             </div>
             <br />
-            <button ng-click="addEmployee(empl)" class="btn btn-default">Add Employee</button>
+            <button ng-disabled="employee.isValid()" ng-click="addEmployee(empl)" class="btn btn-default">Add Employee</button>
         </form>
         <!-- Hidden until employee added-->
-        <h3 ng-show="employee.isValid()">Add Dependent</h3>
+        <h3 ng-show="employee.isValid()">Dependents</h3>
         <form class="form-inline" ng-show="employee.isValid()">
             <div class="form-group">
                 <label>First Name</label>
