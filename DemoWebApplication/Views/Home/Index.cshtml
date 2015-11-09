@@ -24,8 +24,8 @@
             <button ng-click="addEmployee(empl)" class="btn btn-default">Add Employee</button>
         </form>
         <!-- Hidden until employee added-->
-        <h3 ng-show="employee.dependents">Add Dependent</h3>
-        <form class="form-inline" ng-show="employee.dependents">
+        <h3 ng-show="employee.isValid()">Add Dependent</h3>
+        <form class="form-inline" ng-show="employee.isValid()">
             <div class="form-group">
                 <label>First Name</label>
                 <input type="text" class="form-control" placeholder="Jane" ng-model="dep.firstName">
@@ -40,12 +40,15 @@
         <br />
         <button class="btn btn-default" ng-click="clearForm()">Clear Form</button>
     </div>
-    <div class="col-md-4" ng-show="employee" >
+    <div class="col-md-4" ng-show="employee.isValid()" >
         <h3>Employee Name</h3>
         <p>{{employee.firstName}} {{employee.lastName}}</p>
-        <h3 ng-show="{{employee.dependents}}">Dependents</h3>
+        <h3 ng-show="employee.dependents.length > 0">Dependents</h3>
         <ul ng-repeat="dep in employee.dependents">
             <li>{{ dep.firstName }} {{dep.lastName}}</li>
         </ul>
+
+        <h3>Paycheck per cycle w/ Deduction</h3>
+        <h4>{{ paycheck | currency }}</h4>
     </div>
 </div>

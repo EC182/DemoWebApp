@@ -1,48 +1,62 @@
-﻿(function (ng) {
+﻿(function() {
+    var person = function(firstName, lastName) {
+        this.firstName = firstName || '';
+        this.lastName = lastName || '';
+        this.dependents = [];
+    };
+
+    person.prototype.isValid = function() {
+        return this.firstName.length > 0 && this.lastName.length > 0;
+    }; 
+
+    window.models = window.models || {};
+
+    window.models.Person = person;
+}());
+
+
+
+
+(function (ng, models) {
 
     var module = ng.module('DeductionCalculator', []);
 
     var controller = function($scope) {
 
-        var calculateDeduction = function() {
+        var calculatePaycheck = function() {
             //post the employee information back to the
             //api endpoint.  
 
             //returns a paycheck deduction amount
 
-            $scope.paycheckDeduction = 1000;
+            $scope.paycheck = 2000 - 1000 - $scope.employee.dependents.length * 500;
         }
 
+        $scope.employee = new models.Person();
 
-        $scope.employee = {
-            firstName: '',
-            lastName : ''
-        };
+        $scope.paycheck = 0;
 
-        $scope.paycheckDeduction = 0;
-
-        $scope.addEmployee = function (empl) {            
-            if (empl.firstName != null && empl.lastName != null) {
-                $.extend($scope.employee, empl);
-                $scope.employee.dependents = [];
-                calculateDeduction();
+        $scope.addEmployee = function (empl) {
+            $.extend($scope.employee, empl);
+            if ($scope.employee.isValid) {
+                calculatePaycheck();
             }
         };
 
-
         $scope.addDependent = function (dep) {
-            if (dep.firstName != null && dep.lastName != null) {
-                var newDep = $.extend({}, dep);
-                $scope.employee.dependents.push(newDep);
+            var dependent = $.extend(new models.Person(), dep);
+            if (dependent.isValid()) {                
+                $scope.employee.dependents.push(dependent);
+                calculatePaycheck();
             }
         };
 
         $scope.clearForm = function() {
-            $scope.employee = {};
+            $scope.employee = new models.Person();
         };
     };
 
     module.controller('employeeController', ['$scope', controller]);
 
 
-}(window.angular));
+}(window.angular, window.models));
