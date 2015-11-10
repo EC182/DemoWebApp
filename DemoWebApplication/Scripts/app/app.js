@@ -67,6 +67,12 @@
             }
         };
 
+        $scope.removeDependent = function(dep) {
+            var index = $scope.employee.dependents.indexOf(dep);
+            $scope.employee.dependents.splice(index, 1);
+            calculatePaycheck();
+        }
+
         $scope.clearForm = function () {
             $scope.employee = new models.Person();
             $scope.empl = null;

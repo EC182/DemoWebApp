@@ -9,20 +9,22 @@
 
 <div class="row" ng-app="DeductionCalculator" ng-controller="employeeController" ng-cloak>
 
-    <div class="col-md-8">
+    <div class="col-sm-8">
         <h3>Employee</h3>
-        <form class="form-inline">
+        <div class="form-inline">
             <div class="form-group">
                 <label>First Name</label>
-                <input type="text" name="firstName" class="form-control" placeholder="Jane" ng-model="empl.firstName"/>
+                <input type="text" name="firstName" class="form-control" placeholder="Jane" ng-model="empl.firstName" />
             </div>
             <div class="form-group">
                 <label>Last Name</label>
                 <input type="text" name="lastName" class="form-control" placeholder="Doe" ng-model="empl.lastName" />
             </div>
-            <br />
-            <button ng-disabled="employee.isValid()" ng-click="addEmployee(empl)" class="btn btn-default">Add Employee</button>
-        </form>
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <button ng-disabled="employee.isValid()" ng-click="addEmployee(empl)" class="form-control btn btn-primary btn-xs">Add Employee</button>
+            </div>
+        </div>
         <!-- Hidden until employee added-->
         <h3 ng-show="employee.isValid()">Dependents</h3>
         <form class="form-inline" ng-show="employee.isValid()">
@@ -34,23 +36,33 @@
                 <label>Last Name</label>
                 <input type="text" class="form-control" placeholder="Doe" ng-model="dep.lastName">
             </div>
-            <br/>
-            <button ng-click="addDependent(dep)" class="btn btn-default">Add Dependent</button>
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <button ng-click="addDependent(dep)" class="form-control btn btn-primary btn-xs">Add Dependent</button>
+            </div>
         </form>
         <br />
-        <button class="btn btn-default" ng-click="clearForm()">Clear Form</button>
+        <button class="btn btn-danger" ng-click="clearForm()">Clear Form</button>
     </div>
-    <div class="col-md-4" ng-show="employee.isValid()" >
+    <div class="col-sm-4" ng-show="employee.isValid()">
         <h3>Employee Name</h3>
         <p>{{employee.firstName}} {{employee.lastName}}</p>
         <h3 ng-show="employee.dependents.length > 0">Dependents</h3>
         <ul ng-repeat="dep in employee.dependents">
-            <li>{{ dep.firstName }} {{dep.lastName}}</li>
+            <li>
+                <p>
+                    <span style="display: inline-block;">{{ dep.firstName }} {{dep.lastName }}</span>
+                    <button ng-click="$parent.removeDependent(dep)" class="btn btn-link btn-sm glyphicon glyphicon-remove-sign img-circle"></button>
+                </p>
+            </li>
         </ul>
+        <h3>Paycheck</h3>
+        <h4>{{ 2000 | currency }}</h4>
+
         <h3>Deduction Amount</h3>
         <h4>{{ deduction() | currency }}</h4>
 
-        <h3>Paycheck per cycle w/ Deduction</h3>
+        <h3>Paycheck Less Deduction</h3>
         <h4>{{ paycheck | currency }}</h4>
     </div>
 </div>
